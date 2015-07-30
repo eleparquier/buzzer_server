@@ -56,7 +56,14 @@ class Serveur implements MessageComponentInterface {
         $this->index = new Index();
         $this->lastCleaning = time();
         self::$instance = $this;
+        $this->log("Démarrage du serveur");
     }
+
+    function __destruct()
+    {
+        $this->log("Stoppage du serveur");
+    }
+
 
     /**
      * When a new connection is opened it will be passed to this method
