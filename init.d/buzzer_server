@@ -1,0 +1,80 @@
+#!/usr/bin/php
+<?php
+
+define('SCRIPT_TO_LAUNCH', '/home/buzzer/ws.php');
+
+if(!isset($_SERVER['argv'][1])) {
+    echo "invalid or excess argument(s)\n";
+    exit(2);
+}
+
+if(!in_array($_SERVER['argv'][1], array('start','stop','restart','try-restart','reload','force-reload','status'))) {
+    echo "invalid or excess argument(s)\n";
+    exit(2);
+}
+
+switch($_SERVER['argv'][1]) {
+    case 'start':
+        if(!isRunning()) {
+            start();
+        }
+        exit(0);
+        break;
+    case 'stop':
+        if(isRunning()) {
+            stop();
+        }
+        exit(0);
+        break;
+    case 'restart':
+        if(isRunning()) stop();
+        start();
+        exit(0);
+        break;
+    case 'try-restart':
+        if(isRunning()) {
+            stop();
+            start();
+        }
+        exit(0);
+        break;
+    case 'status':
+        if(isRunning()) exit(0);
+        else exit(3);
+        break;
+    default :
+        exit(0);
+        break;
+}
+
+
+/**
+ * Vérifie si le serveur tourne
+ * @return boolean
+ */
+function isRunning() {
+    return count(getRunning()) > 0;
+}
+
+/**
+ * Démarre le serveur
+ */
+function start() {
+    popen(SCRIPT_TO_LAUNCH . ' >> /var/log/buzzer/ws.log 2>&1 &', 'r');
+}
+
+/**
+ * Stoppe le serveur
+ */
+function stop() {
+    $rep = getRunning();
+    exec('set +o posix;kill -s SIGPWR '.preg_split("# +#", $rep[0])[1]);
+}
+
+/**
+ * Renvoie le(s) processus du serveur qui tournent
+ */
+function getRunning() {
+    exec('ps aux | grep '.SCRIPT_TO_LAUNCH.' | grep -v grep', $rep);
+    return $rep;
+}

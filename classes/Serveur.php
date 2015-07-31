@@ -75,7 +75,6 @@ class Serveur implements MessageComponentInterface {
         $connexion = new Connexion($conn);
         $this->log('Connexion #'.$connexion->getRessourceId());
         $this->index->addConnection($connexion);
-        //echo $this;
     }
 
     /**
@@ -90,7 +89,6 @@ class Serveur implements MessageComponentInterface {
         $connexion = $this->index->getById($conn->resourceId);
         $connexion->onDisconnect();
         $this->index->removeConnectionById($connexion->getRessourceId());
-        //echo $this;
     }
 
     /**
@@ -170,7 +168,6 @@ class Serveur implements MessageComponentInterface {
      * @param string $txt
      */
     function log($txt) {
-        //echo debug_backtrace()[0]['line'].date('[Y-m-d H:i:s] ').$txt."\n";return;
         echo date('[Y-m-d H:i:s] ').$txt."\n";
     }
 
@@ -180,6 +177,14 @@ class Serveur implements MessageComponentInterface {
     public static function getInstance()
     {
         return self::$instance;
+    }
+
+    /**
+     * Stoppe le serveur
+     */
+    public static function stopInstance(){
+        self::$instance->getLoop()->stop();
+        self::$instance = null;
     }
 
     /**
