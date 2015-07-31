@@ -1,4 +1,13 @@
 #!/usr/bin/php
+### BEGIN INIT INFO
+# Provides:          buzzer
+# Required-Start:    $local_fs $remote_fs $network $syslog $named
+# Required-Stop:     $local_fs $remote_fs $network $syslog $named
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# X-Interactive:     true
+# Short-Description: Start/stop buzzer server
+### END INIT INFO
 <?php
 
 define('SCRIPT_TO_LAUNCH', '/home/buzzer/ws.php');
