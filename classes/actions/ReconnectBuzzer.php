@@ -18,8 +18,8 @@ class ReconnectBuzzer extends Action
     {
         /** @var Salon $salon */
         /** @var Buzzer $buzzer */
-        if(isset(Serveur::getInstance()->getBuzzers()->buzzers[$this->idBuzzer])) {
-            $buzzer = Serveur::getInstance()->getBuzzers()->buzzers[$this->idBuzzer];
+        if(Serveur::getInstance()->buzzerExists($this->idBuzzer)) {
+            $buzzer = Serveur::getInstance()->getBuzzers()[$this->idBuzzer];
             $buzzer->setConnexion($this->getConnexion());
         } else {
             $buzzer = Serveur::getInstance()->getBuzzers()->addNewBuzzer($this->getConnexion());
