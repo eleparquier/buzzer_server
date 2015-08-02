@@ -25,6 +25,7 @@ class ReconnectBuzzer extends Action
             $buzzer = Serveur::getInstance()->getBuzzers()->addNewBuzzer($this->getConnexion());
         }
         $this->response['idBuzzer'] = $buzzer->getId();
+        $this->response['pseudo'] = $buzzer->getPseudoApparent();
         if(!is_null($buzzer->getSalon())) {
             $this->response['idSalon'] = $buzzer->getSalon()->getId();
             $this->response['partieEnCours'] = $buzzer->getSalon()->partieEnCours();
