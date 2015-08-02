@@ -26,6 +26,9 @@ class ReconnectBuzzer extends Action
         }
         $this->response['idBuzzer'] = $buzzer->getId();
         $this->response['pseudo'] = $buzzer->getPseudoApparent();
+        $this->response['idSalon'] = '';
+        $this->response['partieEnCours'] = false;
+        $this->response['partieEnPause'] = true;
         if(!is_null($buzzer->getSalon())) {
             $this->response['idSalon'] = $buzzer->getSalon()->getId();
             $this->response['partieEnCours'] = $buzzer->getSalon()->partieEnCours();
