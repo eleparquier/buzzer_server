@@ -60,7 +60,7 @@ class Synchronisation
             $this->decalage = microtime(true) - ($msg->timeCli/1000) - $tps;
         }
         $this->incrNbEssais();
-        if($this->nbEssais < Serveur::NB_ESSAIS_SYNCHRO) {
+        if($this->nbEssais < Conf::getNbEssaisSynchro()) {
             $this->send();
         } else {
             $this->getBuzzer()->setDecalage($this->decalage);

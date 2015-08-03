@@ -15,10 +15,6 @@ use Ratchet\WebSocket\Version\RFC6455\Connection;
 
 class Serveur implements MessageComponentInterface {
 
-    const DELAY_BETWEEN_CLEANING = 10;
-    const MAX_DECONNEXION_TIME = 20;
-    const NB_ESSAIS_SYNCHRO = 10;
-
     /**
      * @var int
      */
@@ -51,6 +47,7 @@ class Serveur implements MessageComponentInterface {
 
     function __construct()
     {
+        Conf::init();
         $this->salons = new SalonCollection();
         $this->buzzers = new BuzzerCollection();
         $this->index = new Index();
@@ -137,7 +134,7 @@ class Serveur implements MessageComponentInterface {
         $toRemove = array();
         foreach ($this->salons as $index => $salon) {
             /** @var Salon $salon */
-            if ($salon->getDisconnectionTime() > 0 && $salon->getDisconnectionTime() < time() - self::MAX_DECONNEXION_TIME) {
+            if ($salon->getDisconnectionTime() > 0 && $salon->getDisconnectionTime() < time() - Conf::getMaxDeconnexionTime()) {
                 $toRemove[] = $index;
                 $this->index->removeConnectedById($salon->getId());
             }
@@ -150,7 +147,7 @@ class Serveur implements MessageComponentInterface {
         $toRemove = array();
         foreach ($this->buzzers as $index => $buzzer) {
             /** @var Buzzer $buzzer */
-            if ($buzzer->getDisconnectionTime() > 0 && $buzzer->getDisconnectionTime() < time() - self::MAX_DECONNEXION_TIME) {
+            if ($buzzer->getDisconnectionTime() > 0 && $buzzer->getDisconnectionTime() < time() - Conf::getMaxDeconnexionTime()) {
                 $toRemove[] = $index;
                 $this->index->removeConnectedById($buzzer->getId());
             }
@@ -225,7 +222,7 @@ class Serveur implements MessageComponentInterface {
     public function setLoop($loop)
     {
         $this->loop = $loop;
-        $this->loop->addPeriodicTimer(self::DELAY_BETWEEN_CLEANING, array($this, 'cleanConnecteds'));
+        $this->loop->addPeriodicTimer(Conf::getDelayBetweenCleaning(), array($this, 'cleanConnecteds'));
     }
 
     /**

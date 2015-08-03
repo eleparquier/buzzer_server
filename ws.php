@@ -4,6 +4,7 @@ use Ratchet\Server\IoServer;
 
 require dirname(__FILE__) . '/vendor/autoload.php';
 require dirname(__FILE__) . '/classes/Serveur.php';
+require dirname(__FILE__) . '/classes/Conf.php';
 
 require dirname(__FILE__) . '/classes/ActionFactory.php';
 require dirname(__FILE__) . '/classes/Action.php';
