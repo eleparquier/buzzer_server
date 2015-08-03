@@ -47,13 +47,13 @@ class Serveur implements MessageComponentInterface {
 
     function __construct()
     {
-        Conf::init();
+        $this->log("Démarrage du serveur");
+        $this->initConf();
         $this->salons = new SalonCollection();
         $this->buzzers = new BuzzerCollection();
         $this->index = new Index();
         $this->lastCleaning = time();
         self::$instance = $this;
-        $this->log("Démarrage du serveur");
     }
 
     function __destruct()
@@ -61,6 +61,14 @@ class Serveur implements MessageComponentInterface {
         $this->log("Stoppage du serveur");
     }
 
+    /**
+     * Relit le fichier de conf
+     */
+    public function initConf()
+    {
+        $this->log("Init conf");
+        Conf::init();
+    }
 
     /**
      * When a new connection is opened it will be passed to this method
