@@ -39,10 +39,6 @@ require dirname(__FILE__) . '/classes/Buzzer.php';
 require dirname(__FILE__) . '/classes/Salon.php';
 require dirname(__FILE__) . '/classes/Index.php';
 
-
-declare(ticks = 1);
-pcntl_signal(SIGPWR, "signal_handler", false);
-
 $noyau = new \fr\manaur\buzzer\Serveur();
 $server = IoServer::factory(
     new \Ratchet\Http\HttpServer(
@@ -54,8 +50,3 @@ $server = IoServer::factory(
 );
 $noyau->setLoop($server->loop);
 $server->run();
-
-function signal_handler($signal) {
-    \fr\manaur\buzzer\Serveur::getInstance()->stopInstance();
-    exit();
-}
