@@ -27,11 +27,17 @@ class Conf
     private static $nbEssaisSynchro = null;
 
     /**
+     * @var string
+     */
+    private static $password = null;
+
+    /**
      * Initialisation des variables à partir du fichier de conf
      */
     public static function init(){
         foreach(parse_ini_file(dirname(__FILE__).'/../conf/conf.ini') as $var=>$val) {
-            self::$$var = (int) $val;
+            if($var == 'password') self::$$var = $val;
+            else self::$$var = (int) $val;
         }
     }
 
@@ -58,6 +64,15 @@ class Conf
     {
         return self::$nbEssaisSynchro;
     }
+
+    /**
+     * @return string
+     */
+    public static function getPassword()
+    {
+        return self::$password;
+    }
+
 
 
 }
