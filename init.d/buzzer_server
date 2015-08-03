@@ -1,4 +1,8 @@
 #!/usr/bin/php
+<?php
+use WebSocket\Client;
+ob_start();
+?>
 ### BEGIN INIT INFO
 # Provides:          buzzer
 # Required-Start:    $local_fs $remote_fs $network $syslog $named
@@ -10,7 +14,12 @@
 ### END INIT INFO
 <?php
 
+ob_end_clean();
 define('SCRIPT_TO_LAUNCH', '/home/buzzer/ws.php');
+require_once(dirname(__FILE__).'/../vendor/autoload.php');
+require_once(dirname(__FILE__).'/../classes/Conf.php');
+fr\manaur\buzzer\Conf::init();
+
 
 if(!isset($_SERVER['argv'][1])) {
     echo "invalid or excess argument(s)\n";
@@ -51,6 +60,10 @@ switch($_SERVER['argv'][1]) {
         if(isRunning()) exit(0);
         else exit(3);
         break;
+    case 'reload':
+        sendCommand(array('type'=>'Reload','password'=>fr\manaur\buzzer\conf::getPassword()));
+        exit(0);
+        break;
     default :
         exit(0);
         break;
@@ -86,4 +99,14 @@ function stop() {
 function getRunning() {
     exec('ps aux | grep '.SCRIPT_TO_LAUNCH.' | grep -v grep', $rep);
     return $rep;
+}
+
+/**
+ * Envoie une commande au serveur
+ * @param array $commande
+ */
+function sendCommand($commande) {
+    $client = new Client("ws://localhost:30572");
+    $client->send(json_encode($commande));
+    $client->close();
 }

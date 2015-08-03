@@ -8,6 +8,7 @@ require dirname(__FILE__) . '/classes/Conf.php';
 
 require dirname(__FILE__) . '/classes/ActionFactory.php';
 require dirname(__FILE__) . '/classes/Action.php';
+require dirname(__FILE__) . '/classes/AdminAction.php';
 require dirname(__FILE__) . '/classes/actions/Buzz.php';
 require dirname(__FILE__) . '/classes/actions/ConnectNewSalon.php';
 require dirname(__FILE__) . '/classes/actions/ConnectNewBuzzer.php';
