@@ -9,14 +9,14 @@
 namespace fr\manaur\buzzer;
 
 
-class Stop extends Action
+class Stop extends AdminAction
 {
     /**
      * @return void
      */
     function action()
     {
-
+        parent::action();
     }
 
 }

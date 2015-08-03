@@ -9,13 +9,14 @@
 namespace fr\manaur\buzzer;
 
 
-class Reload extends Action
+class Reload extends AdminAction
 {
     /**
      * @return void
      */
     function action()
     {
+        parent::action();
         Serveur::getInstance()->initConf();
     }
 
