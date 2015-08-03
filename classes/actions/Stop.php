@@ -17,6 +17,7 @@ class Stop extends AdminAction
     function action()
     {
         parent::action();
+        if($this->ok) Serveur::getInstance()->stopInstance();
     }
 
 }

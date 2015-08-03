@@ -26,7 +26,7 @@ if(!isset($_SERVER['argv'][1])) {
     exit(2);
 }
 
-if(!in_array($_SERVER['argv'][1], array('start','stop','restart','try-restart','reload','force-reload','status'))) {
+if(!in_array($_SERVER['argv'][1], array('start','stop','restart','try-restart','reload','force-reload','status','change-password'))) {
     echo "invalid or excess argument(s)\n";
     exit(2);
 }
@@ -61,7 +61,11 @@ switch($_SERVER['argv'][1]) {
         else exit(3);
         break;
     case 'reload':
-        sendCommand(array('type'=>'Reload','password'=>fr\manaur\buzzer\conf::getPassword()));
+        if(isRunning()) {
+            sendCommand(array('type' => 'Reload', 'password' => fr\manaur\buzzer\conf::getPassword()));
+        } else {
+            exit(3);
+        }
         exit(0);
         break;
     default :
@@ -89,8 +93,7 @@ function start() {
  * Stoppe le serveur
  */
 function stop() {
-    $rep = getRunning();
-    exec('set +o posix;kill -s SIGPWR '.preg_split("# +#", $rep[0])[1]);
+    sendCommand(array('type' => 'Stop', 'password' => fr\manaur\buzzer\Conf::getPassword()));
 }
 
 /**
@@ -108,5 +111,9 @@ function getRunning() {
 function sendCommand($commande) {
     $client = new Client("ws://localhost:30572");
     $client->send(json_encode($commande));
-    $client->close();
+    try {
+        $client->close();
+    } catch (WebSocket\ConnectionException $e) {
+
+    }
 }
