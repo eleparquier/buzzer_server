@@ -60,6 +60,7 @@ switch($_SERVER['argv'][1]) {
         if(isRunning()) exit(0);
         else exit(3);
         break;
+    case 'force-reload':
     case 'reload':
         if(isRunning()) {
             sendCommand(array('type' => 'Reload', 'password' => fr\manaur\buzzer\conf::getPassword()));
