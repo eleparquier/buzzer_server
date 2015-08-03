@@ -21,6 +21,7 @@ require dirname(__FILE__) . '/classes/actions/ReconnectSalon.php';
 require dirname(__FILE__) . '/classes/actions/RecupSalons.php';
 require dirname(__FILE__) . '/classes/actions/RefreshAutresBuzzers.php';
 require dirname(__FILE__) . '/classes/actions/RelancePartie.php';
+require dirname(__FILE__) . '/classes/actions/Reload.php';
 require dirname(__FILE__) . '/classes/actions/StartSynchro.php';
 require dirname(__FILE__) . '/classes/actions/Synchro.php';
 
