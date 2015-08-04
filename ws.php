@@ -27,6 +27,7 @@ require dirname(__FILE__) . '/classes/actions/Reload.php';
 require dirname(__FILE__) . '/classes/actions/StartSynchro.php';
 require dirname(__FILE__) . '/classes/actions/Stop.php';
 require dirname(__FILE__) . '/classes/actions/Synchro.php';
+require dirname(__FILE__) . '/classes/actions/Unknown.php';
 
 require dirname(__FILE__) . '/classes/Partie.php';
 require dirname(__FILE__) . '/classes/Synchronisation.php';

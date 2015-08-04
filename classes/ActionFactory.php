@@ -18,7 +18,12 @@ class ActionFactory
      */
     public static function make(\StdClass $source, Connexion $connexion){
         $class = __NAMESPACE__.'\\'.ucfirst($source->type);
-        $ret = new $class($source);/** @var Action $ret */
+        if(in_array(ucfirst($source->type),Serveur::getInstance()->getActions())) {
+            $ret = new $class($source);
+        } else {
+            $ret = new Unknown($source);
+        }
+        /** @var Action $ret */
         $ret->setConnexion($connexion);
         $ret->setResponse(array('idConnection'=>$connexion->getRessourceId(),'msgType'=>$source->type, 'error'=>0, 'errorMsg'=>''));
         return $ret;

@@ -45,10 +45,17 @@ class Serveur implements MessageComponentInterface {
      */
     private $loop;
 
+    /**
+     * @var array
+     */
+    private $actions;
+
+
     function __construct()
     {
         $this->log("Démarrage du serveur");
         $this->initConf();
+        $this->loadListActions();
         $this->salons = new SalonCollection();
         $this->buzzers = new BuzzerCollection();
         $this->index = new Index();
@@ -68,6 +75,19 @@ class Serveur implements MessageComponentInterface {
     {
         $this->log("Init conf");
         Conf::init();
+    }
+
+    /**
+     * Refresh de la liste des actions
+     */
+    public function loadListActions() {
+        $this->actions = array();
+        foreach(scandir(dirname(__FILE__).'/actions') as $file) {
+            if(preg_match('#^[a-zA-Z]+\.php$#', $file)) {
+                $segments = explode('.', $file);
+                $this->actions[] = $segments[0];
+            }
+        }
     }
 
     /**
@@ -281,6 +301,14 @@ class Serveur implements MessageComponentInterface {
     public function salonExists($idSalon)
     {
         return isset($this->salons[$idSalon]);
+    }
+
+    /**
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 
 
