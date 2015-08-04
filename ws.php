@@ -17,6 +17,7 @@ require dirname(__FILE__) . '/classes/actions/InscriptToSalon.php';
 require dirname(__FILE__) . '/classes/actions/NomSalon.php';
 require dirname(__FILE__) . '/classes/actions/NouvellePartie.php';
 require dirname(__FILE__) . '/classes/actions/Pseudo.php';
+require dirname(__FILE__) . '/classes/actions/Objects.php';
 require dirname(__FILE__) . '/classes/actions/ReconnectBuzzer.php';
 require dirname(__FILE__) . '/classes/actions/ReconnectSalon.php';
 require dirname(__FILE__) . '/classes/actions/RecupSalons.php';
