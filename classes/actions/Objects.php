@@ -14,6 +14,6 @@ class Objects extends AdminAction
     function action()
     {
         parent::action();
-        if($this->ok) echo Serveur::getInstance();
+        if($this->ok) $this->sendFreeText(Serveur::getInstance());
     }
 }

@@ -71,11 +71,20 @@ abstract class Action
     }
 
     /**
-     * Envoie la réponse à la connexion
+     * Envoie la réponse à la connexion, la json_encode avant
      */
     public function sendResponse()
     {
         $this->getConnexion()->send(json_encode($this->response));
+    }
+
+    /**
+     * Envoie une réponse à la connexion telle quelle
+     * @param string $txt
+     */
+    public function sendFreeText($txt)
+    {
+        $this->getConnexion()->send($txt);
     }
 
 }

@@ -70,7 +70,7 @@ switch($_SERVER['argv'][1]) {
         exit(0);
         break;
     case 'objects':
-        sendCommand(array('type' => 'objects', 'password' => fr\manaur\buzzer\conf::getPassword()));
+        echo "\n".sendCommand(array('type' => 'objects', 'password' => fr\manaur\buzzer\conf::getPassword()))."\n";
         exit(0);
         break;
     default :
@@ -112,13 +112,17 @@ function getRunning() {
 /**
  * Envoie une commande au serveur
  * @param array $commande
+ * @return string
  */
 function sendCommand($commande) {
+    $ret ="";
     $client = new Client("ws://localhost:30572");
     $client->send(json_encode($commande));
     try {
+        $ret = $client->receive();
         $client->close();
     } catch (WebSocket\ConnectionException $e) {
 
     }
+    return $ret;
 }
