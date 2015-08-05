@@ -18,7 +18,9 @@ class ConnectNewSalon extends Action
         /** @var Salon $salon */
         /** @var Buzzer $buzzer */
         $salon = Serveur::getInstance()->getSalons()->addNewSalon($this->getConnexion());
+        $salon->setNom($this->nomSalon);
         $this->response['idSalon'] = $salon->getId();
+        $this->response['nomSalon'] = $salon->getNomApparent();
         $this->sendResponse();
     }
 
