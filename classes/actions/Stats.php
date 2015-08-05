@@ -16,6 +16,6 @@ class Stats extends Action
      */
     function action()
     {
-        $this->sendFreeText(json_encode(array('nbSalons'=>Serveur::getInstance()->getSalons()->count(),'nbBuzzers'=>Serveur::getInstance()->getBuzzers()->count())));
+        $this->sendFreeText(json_encode(array('type'=>'stats','nbSalons'=>Serveur::getInstance()->getSalons()->count(),'nbBuzzers'=>Serveur::getInstance()->getBuzzers()->count())));
     }
 }
