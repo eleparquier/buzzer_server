@@ -25,6 +25,7 @@ require dirname(__FILE__) . '/classes/actions/RefreshAutresBuzzers.php';
 require dirname(__FILE__) . '/classes/actions/RelancePartie.php';
 require dirname(__FILE__) . '/classes/actions/Reload.php';
 require dirname(__FILE__) . '/classes/actions/StartSynchro.php';
+require dirname(__FILE__) . '/classes/actions/Stats.php';
 require dirname(__FILE__) . '/classes/actions/Stop.php';
 require dirname(__FILE__) . '/classes/actions/Synchro.php';
 require dirname(__FILE__) . '/classes/actions/Unknown.php';
